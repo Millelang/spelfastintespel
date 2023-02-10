@@ -1,0 +1,1 @@
+Ska göra ett hockeyspel (typ pong) där ena spelaren är björklöven och den andra spelaren är MoDo hockey, spelet har dock en liten tvist för att det ska vara mer verkligt vilket innebär att björklöven spelare kommer vara mycket starkare än den andra spelaren.
