@@ -10,8 +10,8 @@ import java.net.MalformedURLException;
 
 public class spel extends Canvas implements Runnable{
     private BufferStrategy bs;
-    private int lövenX = 100;
-    private int lövenY = 100;
+    //private int lövenX = 100;
+    //private int lövenY = 100;
     private int lövenVX = 0;
     private int lövenVY = 0;
 
@@ -21,7 +21,8 @@ public class spel extends Canvas implements Runnable{
     private int puckVY = 0;
     private BufferedImage löven;
     private BufferedImage puck;
-
+    private Rectangle hitbox = new Rectangle(540,560,120,105);
+    private Rectangle lövenbox = new Rectangle(100,100,152,152);
     private boolean running = false;
     private Thread thread;
 
@@ -62,8 +63,11 @@ public class spel extends Canvas implements Runnable{
 
         // Rita ut den nya bilden
         draw(g);
-        g.drawImage(löven,lövenX,lövenY,löven.getWidth(),löven.getHeight(),null);
-        g.drawImage(puck,puckX,puckY,puck.getWidth()/10, puck.getHeight()/10, null);
+        g.setColor(Color.white);
+        //g.fillRect(lövenX,lövenY,löven.getWidth(),löven.getHeight());
+
+        g.drawImage(löven, lövenbox.x, lövenbox.y, löven.getWidth(),löven.getHeight(),null);
+        g.drawImage(puck, hitbox.x, hitbox.y, puck.getWidth()/10, puck.getHeight()/10, null);
 
 
         g.dispose();
@@ -75,8 +79,37 @@ public class spel extends Canvas implements Runnable{
     }
 
     private void update() {
-        lövenX +=lövenVX;
-        lövenY +=lövenVY;
+
+        if (lövenbox.y>hitbox.y && lövenbox.intersects(hitbox)) {
+            puckVY = -10;
+        }
+
+        if (hitbox.y>lövenbox.y && lövenbox.intersects(hitbox)) {
+            puckVY = 10;
+        }
+
+        if (lövenbox.intersects(hitbox)) {
+            puckVX=20;
+        }
+        if (hitbox.x == 1920) {
+            puckVX= -20;
+        }
+        if (hitbox.x == 0) {
+            puckVX= 20;
+        }
+        if (hitbox.y== 1080) {
+            puckVY = -10;
+        }
+        if (hitbox.y== 0) {
+            puckVY = 10;
+        }
+        hitbox.x+=puckVX;
+        hitbox.y+=puckVY;
+        lövenbox.x +=lövenVX;
+        lövenbox.y +=lövenVY;
+
+
+
     }
 
     public static void main(String[] args) {
@@ -163,16 +196,16 @@ public class spel extends Canvas implements Runnable{
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyChar() == 'a') {
-                lövenVX = -3;
+                lövenVX = -8;
             }
             if (e.getKeyChar() == 'd') {
-                lövenVX = 3;
+                lövenVX = 8;
             }
             if (e.getKeyChar() == 'w') {
-                lövenVY = -3;
+                lövenVY = -8;
             }
             if (e.getKeyChar() == 's') {
-                lövenVY = 3;
+                lövenVY = 8;
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 lövenVX = -3;
