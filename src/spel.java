@@ -15,14 +15,23 @@ public class spel extends Canvas implements Runnable{
     private int lövenVX = 0;
     private int lövenVY = 0;
 
+    private int modoVX;
+
+    private int modoVY;
+
+
     private int puckX = 960;
     private int puckY = 540;
     private int puckVX = 0;
     private int puckVY = 0;
     private BufferedImage löven;
     private BufferedImage puck;
+
+    private BufferedImage modo;
     private Rectangle hitbox = new Rectangle(540,560,120,105);
     private Rectangle lövenbox = new Rectangle(100,100,152,152);
+
+    private Rectangle modobox = new Rectangle(1800,100,152,152);
     private boolean running = false;
     private Thread thread;
 
@@ -36,6 +45,13 @@ public class spel extends Canvas implements Runnable{
         }
         try {
             puck = ImageIO.read(new File("puck.png"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            modo = ImageIO.read(new File("modo.png"));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -65,7 +81,7 @@ public class spel extends Canvas implements Runnable{
         draw(g);
         g.setColor(Color.white);
         //g.fillRect(lövenX,lövenY,löven.getWidth(),löven.getHeight());
-
+        g.drawImage(modo, modobox.x, modobox.y, 152,152,null);
         g.drawImage(löven, lövenbox.x, lövenbox.y, löven.getWidth(),löven.getHeight(),null);
         g.drawImage(puck, hitbox.x, hitbox.y, puck.getWidth()/10, puck.getHeight()/10, null);
 
@@ -80,16 +96,40 @@ public class spel extends Canvas implements Runnable{
 
     private void update() {
 
-        if (lövenbox.y>hitbox.y && lövenbox.intersects(hitbox)) {
+        if (lövenbox.y>hitbox.y+41 && lövenbox.intersects(hitbox)) {
             puckVY = -10;
         }
 
-        if (hitbox.y>lövenbox.y && lövenbox.intersects(hitbox)) {
+        if  (hitbox.y>lövenbox.y+40 && lövenbox.intersects(hitbox) && lövenbox.y>hitbox.y+40) {
+            puckY = hitbox.y;
+            puckVY=0;
+        }
+
+
+        if (hitbox.y>lövenbox.y+41 && lövenbox.intersects(hitbox)) {
             puckVY = 10;
         }
 
         if (lövenbox.intersects(hitbox)) {
             puckVX=20;
+        }
+        if (modobox.y>hitbox.y+41 && modobox.intersects(hitbox)) {
+            puckVY = -10;
+        }
+
+        if  (hitbox.y>modobox.y+40 && modobox.intersects(hitbox) && modobox.y>hitbox.y+40) {
+            puckY = hitbox.y;
+            puckVY=0;
+
+        }
+
+
+        if (hitbox.y>modobox.y+41 && modobox.intersects(hitbox)) {
+            puckVY = 10;
+        }
+
+        if (modobox.intersects(hitbox)) {
+            puckVX=-20;
         }
         if (hitbox.x == 1920) {
             puckVX= -20;
@@ -107,6 +147,8 @@ public class spel extends Canvas implements Runnable{
         hitbox.y+=puckVY;
         lövenbox.x +=lövenVX;
         lövenbox.y +=lövenVY;
+        modobox.x +=modoVX;
+        modobox.y +=modoVY;
 
 
 
@@ -133,7 +175,7 @@ public class spel extends Canvas implements Runnable{
     }
 
     public void run() {
-        double ns = 1000000000.0 / 25.0;
+        double ns = 1000000000.0 / 60.0;
         double delta = 0;
         long lastTime = System.nanoTime();
 
@@ -208,7 +250,16 @@ public class spel extends Canvas implements Runnable{
                 lövenVY = 8;
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                lövenVX = -3;
+                modoVY = 8;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                modoVY = -8;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                modoVX = -8;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                modoVX = 8;
             }
         }
 
@@ -225,6 +276,18 @@ public class spel extends Canvas implements Runnable{
             }
             if (e.getKeyChar() == 's') {
                 lövenVY = 0;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                modoVX = 0;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                modoVX = 0;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                modoVY = 0;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                modoVY = 0;
             }
         }
     }
