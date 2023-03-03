@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3982194b-9735-4114-81d1-8fc70cf6f7e3" name="Changes" comment="La till en modo logga och hitbox för spelare 2, ökade fps till 60 för att det ska vara finare att titta på">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loven.png" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/resources/loven.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modo.png" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/resources/modo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puck.png" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/resources/puck.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spelfastintespel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/spelfastintespel.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,6 +47,7 @@
       <recent name="C:\Users\milton.langstrom\IdeaProjects\spelfastintespel" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\milton.langstrom\IdeaProjects\spelfastintespel\.idea\resources" />
       <recent name="C:\Users\milton.langstrom\IdeaProjects\spelfastintespel" />
     </key>
   </component>
@@ -58,6 +63,7 @@
       <workItem from="1676379052807" duration="4342000" />
       <workItem from="1677229362253" duration="3777000" />
       <workItem from="1677588845494" duration="4035000" />
+      <workItem from="1677834260366" duration="3633000" />
     </task>
     <task id="LOCAL−00001" summary="började med basen för interaktiva grafiiken">
       <created>1676023411049</created>

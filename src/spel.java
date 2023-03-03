@@ -63,8 +63,6 @@ public class spel extends Canvas implements Runnable{
         JFrame frame = new JFrame();
         frame.add(this);
         frame.addKeyListener(new MyKeyListener());
-        this.addMouseMotionListener(new MyMouseMotionListener());
-        this.addMouseListener(new MyMouseListener());
         requestFocus();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -86,10 +84,6 @@ public class spel extends Canvas implements Runnable{
         g.drawImage(modo, modobox.x, modobox.y, 152,152,null);
         g.drawImage(löven, lövenbox.x, lövenbox.y, löven.getWidth(),löven.getHeight(),null);
         g.drawImage(puck, hitbox.x, hitbox.y, puck.getWidth()/10, puck.getHeight()/10, null);
-
-
-
-
         g.dispose();
         bs.show();
     }
@@ -135,26 +129,27 @@ public class spel extends Canvas implements Runnable{
         if (modobox.intersects(hitbox)) {
             puckVX=-20;
         }
-        if (hitbox.x == 1920) {
+        if (hitbox.x >1920) {
             puckVX= 0;
             puckVY= 0;
             hitbox.y = 540;
             hitbox.x = 960;
         }
-        if (hitbox.x == 0) {
+        if (hitbox.x < 0) {
             puckVX= 0;
             puckVY= 0;
             hitbox.y = 540;
             hitbox.x = 960;
         }
-        if (hitbox.y== 1080) {
+        if (hitbox.y > 1080) {
             puckVY = -10;
+            puckVX = puckVX*2;
         }
-        if (hitbox.y== 0) {
+        if (hitbox.y < 0) {
             puckVY = 10;
-        }
+            puckVX = puckVX*2;        }
         tid = tid-1;
-        if (tid == 0) {tid=30; puckVX=puckVX/2; }
+        if (tid == 0) {tid=30; puckVX=puckVX/2; puckVY=puckVY/2; }
         hitbox.x+=puckVX;
         hitbox.y+=puckVY;
         lövenbox.x +=lövenVX;
@@ -185,7 +180,6 @@ public class spel extends Canvas implements Runnable{
             e.printStackTrace();
         }
     }
-
     public void run() {
         double ns = 1000000000.0 / 60.0;
         double delta = 0;
@@ -206,41 +200,6 @@ public class spel extends Canvas implements Runnable{
         }
         stop();
     }
-
-    public class MyMouseMotionListener implements MouseMotionListener {
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-        }
-    }
-
-    public class MyMouseListener implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
-    }
-
     public class MyKeyListener implements KeyListener {
 
         @Override
